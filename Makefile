@@ -9,8 +9,8 @@ parent: parent.c
 child: child.c
 	$(CC) $(CFLAGS) -o child child.c
 
+run: parent
+	./parent
+
 clean:
 	rm -f parent child
-
-run: all
-	./parent

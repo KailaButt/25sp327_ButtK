@@ -1,20 +1,15 @@
 #!/bin/bash
 
-PID=$1
 
-if [ -z "$PID" ]; then
-    echo "Please provide the child PID as the first argument."
-    exit 1
-fi
+CHILD_PID=$(pgrep -f child)
 
-echo "Sending SIGTSTP to child process (PID: $PID) every 3 seconds..."
-
+echo "Sending SIGTSTP to child process (PID: $CHILD_PID) every 3 seconds..."
 for i in {1..5}
 do
-    echo "Sending SIGTSTP to $PID"
-    kill -SIGTSTP $PID
-    sleep 3
+  kill -SIGTSTP $CHILD_PID
+  echo "Sending SIGTSTP to $CHILD_PID"
+  sleep 3
 done
 
 echo "Done sending signals. Now sending SIGTERM to child."
-kill -SIGTERM $PID
+kill -SIGTERM $CHILD_PID

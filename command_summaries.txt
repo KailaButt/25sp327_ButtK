@@ -1,0 +1,27 @@
+Command: tree
+Description: Displays the structure of directories and files in a tree format.
+Options: 
+  -L: Limits the depth of the directory tree displayed.
+  -d: Displays only directories.
+Example:
+  Command: tree -L 2
+  Explanation: Displays directories and files up to a depth of 2.
+  Output: (example output from your terminal)
+
+Command: watch
+Description: Runs a command periodically and displays its output.
+Options:
+  -n: Specifies the interval (in seconds) between executions.
+Example:
+  Command: watch -n 2 ls
+  Explanation: Displays the output of `ls` every 2 seconds.
+  Output: (example output from your terminal)
+
+Command: stat
+Description: Displays detailed information about a file or directory.
+Options:
+  -c: Customize the output format.
+Example:
+  Command: stat file1.txt
+  Explanation: Displays file size, permissions, and timestamps for file1.txt.
+  Output: (example output from your terminal)
