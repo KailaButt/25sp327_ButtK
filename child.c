@@ -4,41 +4,55 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-volatile int sum = 0;
+#define UNUSED(x) (void)(x)
 
-void sigtstp_handler(int sig, siginfo_t *info, void *context) {
-    sum += 10;
-    union sigval value;
-    value.sival_int = sum;
-    sigqueue(info->si_pid, SIGUSR1, value);
-}
+volatile sig_atomic_t sum = 0;
+volatile sig_atomic_t sigusr2_received = 0;
+volatile sig_atomic_t sigtstp_received = 0;
+volatile sig_atomic_t sigterm_received = 0;
 
-void sigusr2_handler(int sig) {
-    printf("Child: Received SIGUSR2 from Parent. Current sum = %d\n", sum);
-}
+static void signal_handler(int sig, siginfo_t *info, void *context) {
+    UNUSED(info); UNUSED(context);
 
-void sigterm_handler(int sig) {
-    union sigval value;
-    value.sival_int = sum;
-    sigqueue(getppid(), SIGUSR1, value);
-    printf("Child: Received SIGTERM, exiting...\n");
-    exit(0);
+    if (sig == SIGUSR2) {
+        sigusr2_received = 1;
+    } else if (sig == SIGTSTP) {
+        sigtstp_received = 1;
+    } else if (sig == SIGTERM) {
+        sigterm_received = 1;
+    }
 }
 
 int main(void) {
     struct sigaction sigact;
-
+    
     sigact.sa_flags = SA_SIGINFO;
-    sigact.sa_sigaction = sigtstp_handler;
+    sigact.sa_sigaction = signal_handler;
+    
     sigaction(SIGTSTP, &sigact, NULL);
-
-    sigact.sa_flags = 0;
-    sigact.sa_sigaction = sigusr2_handler;
     sigaction(SIGUSR2, &sigact, NULL);
-
-    signal(SIGTERM, sigterm_handler);
+    sigaction(SIGTERM, &sigact, NULL);
 
     while (1) {
+        sum += 10;
+        printf("Child sum: %d\n", sum);
+
+        if (sigtstp_received) {
+            sigqueue(getppid(), SIGUSR1, (union sigval){ .sival_int = sum });
+            printf("Child: SIGTSTP received, sending sum (%d) to parent.\n", sum);
+            sigtstp_received = 0;
+        }
+
+        if (sigusr2_received) {
+            printf("Child: Received SIGUSR2 from parent. Current sum = %d\n", sum);
+            sigusr2_received = 0;
+        }
+
+        if (sigterm_received) {
+            printf("Child: Received SIGTERM, exiting...\n");
+            exit(0);
+        }
+
         sleep(1);
     }
 
