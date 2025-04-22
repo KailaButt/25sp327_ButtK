@@ -3,7 +3,7 @@ LINKER=gcc
 CFLAGS=-Wall -Wextra -O0
 LDFLAGS=-g
 LIBS=-lpthread
-OBJS=worker_thread.o worker_thread_pool.o main.o queue.o tasks.o
+OBJS=worker_thread.o main.o queue.o tasks.o
 TARGETS=request_server test_queue
 
 all: $(TARGETS)
