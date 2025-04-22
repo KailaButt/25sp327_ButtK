@@ -1,54 +1,43 @@
 #include "thread_pool.h"
 #include "common.h"
+#include <stdlib.h>
+#include "worker_thread.h"
+#include "queue.h"
 
-// This function initializes a thread pool by setting up the queue, the number of threads,
-// and the worker threads that will process requests from the queue.
+
+// Function to initialize the thread pool
 struct thread_pool* thread_pool_init(queue_t* que, int num_threads) {
-    // Step 1: Allocate memory for the thread pool structure
+    // Allocate memory for the thread pool
     struct thread_pool* pool = malloc(sizeof(struct thread_pool));
     if (!pool) {
-        perror("Failed to allocate memory for thread pool");
-        return NULL;
+        handle_error("thread_pool_init:malloc");
     }
 
-    // Store the queue and number of threads in the pool structure
-    pool->queue = que;
-    pool->num_threads = num_threads;
+    pool->next_thread_id = 1;  // Initialize the thread ID counter
+    pool->num_threads = num_threads;  // Set the number of threads in the pool
 
-    // Initialize the worker threads in the pool
-    pool->threads = malloc(sizeof(pthread_t) * num_threads);
-    if (!pool->threads) {
-        perror("Failed to allocate memory for thread pool threads");
-        free(pool);
-        return NULL;
-    }
-
-    // Create the threads that will process tasks from the queue
+    // Create the worker threads
     for (int i = 0; i < num_threads; i++) {
-        if (pthread_create(&pool->threads[i], NULL, worker_thread, (void*)pool) != 0) {
-            perror("Failed to create thread");
-            // Handle thread creation failure
-            free(pool->threads);
-            free(pool);
-            return NULL;
-        }
+        struct worker_thread_params* params = malloc(sizeof(struct worker_thread_params));
+        params->que = que;  // Set the queue for the worker thread
+        params->thread_id = pool->next_thread_id;  // Set the thread ID
+
+        // Allocate memory for each worker thread and initialize
+        pool->threads[i] = malloc(sizeof(struct worker_thread));
+        pool->threads[i]->thread_id = pool->next_thread_id;  // Set the worker thread ID
+        pool->threads[i]->thread = create_worker_thread(params);  // Create the worker thread
+        pool->next_thread_id++;  // Increment the thread ID for the next thread
     }
 
-    // Return the initialized thread pool structure
-    return pool;
+    return pool;  // Return the initialized thread pool
 }
 
-// clean up the thread pool, terminating the threads, and releasing any allocated resources.
+// Function to destroy the thread pool and clean up resources
 void thread_pool_destroy(struct thread_pool* pool) {
-    // Indicate to the threads that they should stop processing
-    queue_close(pool->queue);
-
-    //  Wait for all threads to finish by joining them
+    // Cleanup code to destroy the thread pool (if needed)
     for (int i = 0; i < pool->num_threads; i++) {
-        pthread_join(pool->threads[i], NULL);
+        pthread_join(pool->threads[i]->thread, NULL);  // Wait for each thread to finish
+        free(pool->threads[i]);  // Free the worker thread memory
     }
-
-    //  Free the memory allocated for the thread pool and its threads
-    free(pool->threads);
-    free(pool);
+    free(pool);  // Free the thread pool memory
 }
