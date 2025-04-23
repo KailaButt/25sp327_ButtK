@@ -3,13 +3,19 @@ LINKER=gcc
 CFLAGS=-Wall -Wextra -O0
 LDFLAGS=-g
 LIBS=-lpthread
-OBJS=worker_thread.o worker_thread_pool.o main.o queue.o tasks.o
+OBJS=worker_thread.o thread_pool.o main.o queue.o tasks.o
 TARGETS=request_server test_queue
 
 all: $(TARGETS)
 
 request_server: $(OBJS)
-	$(LINKER) $(LINKER_FLAGS) $(OBJS) $(LIBS) -o request_server
+	$(LINKER) $(LDFLAGS) $(OBJS) $(LIBS) -o request_server
+
+thread_pool.o: thread_pool.c thread_pool.h queue.h worker_thread.h common.h
+	$(CC) $(CFLAGS) -c thread_pool.c -o thread_pool.o
+
+worker_thread.o: worker_thread.c worker_thread.h queue.h common.h
+	$(CC) $(CFLAGS) -c worker_thread.c -o worker_thread.o
 
 queue.o: queue.c queue_internal.h queue.h common.h
 	$(CC) $(CFLAGS) -c queue.c -o queue.o
