@@ -18,7 +18,6 @@
  #include <stdio.h>
  #include <stdlib.h>
  #include <string.h>
- #include <gnu/libc-version.h>
  
  #define handle_error_en(en, msg)                         \
      do {                                                 \
@@ -56,3 +55,5 @@
  } request_t;
  
  #endif
+
+
