@@ -1,0 +1,40 @@
+[2025-04-29 10:36:52] [Thread 461408] Log message 3
+[2025-04-29 10:36:52] [Thread 461408] Log message 3
+[2025-04-29 10:36:52] [Thread 461408] Log message 7
+[2025-04-29 10:36:52] [Thread 461408] Log message 7
+[2025-04-29 10:36:52] [Thread 461410] Log message 1
+[2025-04-29 10:36:52] [Thread 461410] Log message 1
+[2025-04-29 10:36:52] [Thread 461410] Log message 2
+[2025-04-29 10:36:52] [Thread 461410] Sum of numbers < 624 is 194376
+[2025-04-29 10:36:52] [Thread 461410] Log message 5
+[2025-04-29 10:36:52] [Thread 461410] Log message 5
+[2025-04-29 10:36:52] [Thread 461409] Log message 4
+[2025-04-29 10:36:52] [Thread 461409] Simulated delay of 0 seconds and 66 milliseconds.
+[2025-04-29 10:36:52] [Thread 461408] Log message 8
+[2025-04-29 10:36:52] [Thread 461408] Simulated delay of 0 seconds and 78 milliseconds.
+[2025-04-29 10:36:52] [Thread 461408] Log message 9
+[2025-04-29 10:36:52] [Thread 461408] Simulated delay of 0 seconds and 96 milliseconds.
+[2025-04-29 10:36:52] [Thread 461407] Log message 0
+[2025-04-29 10:36:52] [Thread 461407] Simulated delay of 0 seconds and 222 milliseconds.
+[2025-04-29 10:36:52] [Thread 461407] Log message 6
+[2025-04-29 10:36:52] [Thread 461407] Simulated delay of 0 seconds and 162 milliseconds.
+[2025-04-29 10:37:59] [Thread 461481] Log message 5
+[2025-04-29 10:37:59] [Thread 461481] Sum of numbers < 413 is 85078
+[2025-04-29 10:37:59] [Thread 461482] Log message 0
+[2025-04-29 10:37:59] [Thread 461482] Log message 0
+[2025-04-29 10:37:59] [Thread 461482] Log message 1
+[2025-04-29 10:37:59] [Thread 461482] Sum of numbers < 72 is 2556
+[2025-04-29 10:37:59] [Thread 461482] Log message 4
+[2025-04-29 10:37:59] [Thread 461482] Log message 4
+[2025-04-29 10:37:59] [Thread 461482] Log message 6
+[2025-04-29 10:37:59] [Thread 461482] Sum of numbers < 437 is 95266
+[2025-04-29 10:37:59] [Thread 461482] Log message 7
+[2025-04-29 10:37:59] [Thread 461482] Sum of numbers < 865 is 373680
+[2025-04-29 10:37:59] [Thread 461484] Log message 2
+[2025-04-29 10:37:59] [Thread 461484] Simulated delay of 0 seconds and 133 milliseconds.
+[2025-04-29 10:37:59] [Thread 461481] Log message 8
+[2025-04-29 10:37:59] [Thread 461481] Simulated delay of 0 seconds and 156 milliseconds.
+[2025-04-29 10:37:59] [Thread 461484] Log message 3
+[2025-04-29 10:37:59] [Thread 461484] Simulated delay of 0 seconds and 65 milliseconds.
+[2025-04-29 10:37:59] [Thread 461484] Log message 9
+[2025-04-29 10:37:59] [Thread 461484] Log message 9
