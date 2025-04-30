@@ -39,3 +39,4 @@ void example_task(void* arg) {
 
     return 0;
 }
+
