@@ -1,0 +1,12 @@
+CC = gcc
+CFLAGS = -Wall -Wextra -g
+OBJS = worker_thread.o thread_pool.o main.o queue.o tasks.o
+
+request_server: $(OBJS)
+	$(CC) $(CFLAGS) -o request_server $(OBJS) -lpthread
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $<
+
+clean:
+	rm -f *.o request_server

@@ -22,6 +22,14 @@ int main() {
         *val = i;
         thread_pool_add(pool, example_task, val);
     }
+    // Add this example_task function to the code.
+
+void example_task(void* arg) {
+    int* val = (int*)arg;
+    printf("Task %d is being processed by thread %ld\n", *val, (long)pthread_self());
+    free(val);  // Free memory after the task is processed.
+}
+
 
     // Give threads a little time to process tasks
     // (This could be more elegant with real shutdown signaling)
